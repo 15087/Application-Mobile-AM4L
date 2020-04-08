@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "71312220724",
+    "firebase_url": "https://application-mobile-am4l.firebaseio.com",
+    "project_id": "application-mobile-am4l",
+    "storage_bucket": "application-mobile-am4l.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:71312220724:android:fe8621fb088d3b04b4e061",
+        "android_client_info": {
+          "package_name": "com.example.app_mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "71312220724-1jg9ka8mqv2o8hfsr1c6ijfnqv60hn5a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSybuWaxRWKyoDt4eS_-mPQ5YthHQVXLU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "71312220724-1jg9ka8mqv2o8hfsr1c6ijfnqv60hn5a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
