@@ -2,12 +2,12 @@ import 'package:app_mobile/services/auth.dart';
 import 'package:flutter/material.dart';
 
 
-class SignIn extends StatefulWidget {
+class Register extends StatefulWidget {
   @override
-  _SignInState createState() => _SignInState();
+  _RegisterState createState() => _RegisterState();
 }
 
-class _SignInState extends State<SignIn> {
+class _RegisterState extends State<Register> {
 
 final AuthService _auth = AuthService();
 
@@ -22,7 +22,7 @@ String password = '';
       appBar: AppBar(
         backgroundColor: Colors.blue[400],
         elevation: 0.0,
-        title: Text('Sign in to School4All'),
+        title: Text('Sign up to School4All'),
       ),
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
@@ -47,7 +47,7 @@ String password = '';
               RaisedButton(
                 color: Colors.blue[500],
                 child: Text(
-                  'Sign in',
+                  'Register',
                   style: TextStyle(color: Colors.white),
                   ),
                 onPressed: (){
