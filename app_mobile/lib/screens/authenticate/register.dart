@@ -71,7 +71,7 @@ String error = '';
                   if(_formKey.currentState.validate()){
                     dynamic result = await _auth.registerWithEmailAndPassword(email, password);
                     if( result == null){
-                      setState(() => error = 'please supply a valid');
+                      setState(() => error = 'please supply a valid email');
                     }
                   }
 
