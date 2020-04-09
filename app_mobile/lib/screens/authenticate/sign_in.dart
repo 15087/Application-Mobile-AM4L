@@ -1,4 +1,5 @@
 import 'package:app_mobile/services/auth.dart';
+import 'package:app_mobile/shared/constants.dart';
 import 'package:flutter/material.dart';
 
 
@@ -25,7 +26,7 @@ String error = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.blue[50],
       appBar: AppBar(
         backgroundColor: Colors.blue[400],
         elevation: 0.0,
@@ -47,6 +48,7 @@ String error = '';
             children: <Widget>[
               SizedBox(height: 20.0,),
               TextFormField(
+                decoration: textInputDecoration.copyWith(hintText: 'Email'),
                 validator: (val) => val.isEmpty ? 'Enter a email please' : null,
                 onChanged: (val){
                   setState(() => email = val );
@@ -54,6 +56,7 @@ String error = '';
               ),
               SizedBox(height: 20.0),
               TextFormField(
+                decoration: textInputDecoration.copyWith(hintText: 'Password'),
                 validator: (val) => val.length < 6 ? 'Enter a valid password please, 6 char. min.' : null,
                 obscureText: true, //masque le mdp
                 onChanged: (val){
