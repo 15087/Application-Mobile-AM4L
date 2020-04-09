@@ -8,11 +8,18 @@ class Authenticate extends StatefulWidget {
 }
 
 class _AuthenticateState extends State<Authenticate> {
+
+bool showSignIn = true;
+void toggleView(){
+  setState(() => showSignIn = !showSignIn);
+}
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Register(),
-      
-    );
+    if(showSignIn){
+      return SignIn(toggleView: toggleView); //toggleView: toggleView permet d'utiliser la fct dans les Widgets ds les views
+    } else{
+      return Register(toggleView: toggleView);
+    }
   }
 }

@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 
 
 class SignIn extends StatefulWidget {
+
+  final Function toggleView;
+  SignIn({this.toggleView});
+
   @override
   _SignInState createState() => _SignInState();
 }
@@ -12,7 +16,7 @@ class _SignInState extends State<SignIn> {
 final AuthService _auth = AuthService();
 
 //text field state
-String login = '';
+String email = '';
 String password = '';
 
   @override
@@ -23,6 +27,14 @@ String password = '';
         backgroundColor: Colors.blue[400],
         elevation: 0.0,
         title: Text('Sign in to School4All'),
+        actions: <Widget>[
+          FlatButton.icon(
+            onPressed: (){
+              widget.toggleView();
+            }, 
+            icon: Icon(Icons.person), 
+            label: Text('Register')),
+        ],
       ),
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
@@ -32,7 +44,7 @@ String password = '';
               SizedBox(height: 20.0,),
               TextFormField(
                 onChanged: (val){
-                  setState(() => login = val );
+                  setState(() => email = val );
                 },
               ),
               SizedBox(height: 20.0),
@@ -51,7 +63,7 @@ String password = '';
                   style: TextStyle(color: Colors.white),
                   ),
                 onPressed: (){
-                  print(login);
+                  print(email);
                   print(password);
 
                 }),
