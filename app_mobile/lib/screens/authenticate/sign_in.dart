@@ -1,5 +1,6 @@
 import 'package:app_mobile/services/auth.dart';
 import 'package:app_mobile/shared/constants.dart';
+import 'package:app_mobile/shared/loading.dart';
 import 'package:flutter/material.dart';
 
 
@@ -16,6 +17,7 @@ class _SignInState extends State<SignIn> {
 
 final AuthService _auth = AuthService();
 final _formKey = GlobalKey<FormState>();
+bool loading = false;
 
 //text field state
 String email = '';
@@ -25,7 +27,7 @@ String error = '';
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return loading ? Loading() : Scaffold(
       backgroundColor: Colors.blue[50],
       appBar: AppBar(
         backgroundColor: Colors.blue[400],
@@ -73,9 +75,13 @@ String error = '';
                   ),
                 onPressed: () async {
                   if(_formKey.currentState.validate()){
+                    setState(() => loading = true);
                     dynamic result = await _auth.signInWithEmailAndPassword(email, password);
                     if( result == null){
-                      setState(() => error = 'could not sign in with those credentials');
+                      setState(() {
+                        error = 'could not sign in with those credentials';
+                        loading = false;
+                      });
                     }
                   }
                 }),
