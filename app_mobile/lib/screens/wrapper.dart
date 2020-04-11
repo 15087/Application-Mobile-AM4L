@@ -1,5 +1,6 @@
 import 'package:app_mobile/screens/authenticate/authenticate.dart';
 import 'package:app_mobile/screens/home/home.dart';
+import 'package:app_mobile/screens/home/homePrincipal.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:app_mobile/models/user.dart';
@@ -13,7 +14,11 @@ class Wrapper extends StatelessWidget {
     //return either Home or Authenticate widget
     if (user == null){
       return Authenticate();
-    } else {
+    } else if (user.uid == 'BmVesUmkXEaWTZ9pJqt6DRm98cJ2'){
+      return HomePrincipal();
+
+    }
+    else {
       return Home();
     }
     
