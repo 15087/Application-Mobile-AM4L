@@ -60,10 +60,9 @@ String error = '';
               TextFormField(
                 decoration: textInputDecoration.copyWith(hintText: 'Password'),
                 validator: (val) => val.length < 6 ? 'Enter a valid password please, 6 char. min.' : null,
-                obscureText: true, //masque le mdp
+                obscureText: true, //hide the password
                 onChanged: (val){
                   setState(() => password = val );
-
                 },
               ),
               SizedBox(height: 20.0),

@@ -1,4 +1,5 @@
 import 'package:app_mobile/models/user.dart';
+import 'package:app_mobile/services/userServices.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthService {
@@ -31,11 +32,13 @@ class AuthService {
     }
   }
 
-  //sign with email and password
+  //sign in with email and password
     Future signInWithEmailAndPassword(String email, String password) async {
     try{
       AuthResult result = await _auth.signInWithEmailAndPassword(email: email, password: password);
       FirebaseUser user = result.user;
+
+
       return _userFromFirebaseUser(user);
     } catch(e){
       print(e.toString());
@@ -49,6 +52,9 @@ class AuthService {
     try{
       AuthResult result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
       FirebaseUser user = result.user;
+
+      // create a new document for the user with the uid
+      await UserService(uid: user.uid).updateUserData(['Null']);
       return _userFromFirebaseUser(user);
     } catch(e){
       print(e.toString());
