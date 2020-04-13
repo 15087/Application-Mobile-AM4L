@@ -1,23 +1,25 @@
 import 'package:app_mobile/services/auth.dart';
 import 'package:app_mobile/shared/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:grouped_buttons/grouped_buttons.dart';
 
 class HomePrincipal extends StatefulWidget {
-  @override
   _HomePrincipalState createState() => _HomePrincipalState();
 }
 
 class _HomePrincipalState extends State<HomePrincipal> {
   final AuthService _auth = AuthService();
+  var _classes = List();
+  var _check = List();
 
   String title = '';
   String body = '';
-  bool value1 = false;
-  bool value2 = false;
-  bool value3 = false;
+
 
   @override
   Widget build(BuildContext context) {
+    var liste = new List<String>.from(_classes);
+    print(liste);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -56,25 +58,14 @@ class _HomePrincipalState extends State<HomePrincipal> {
                   setState(() => body = val);
                 },
               ),
-              CheckboxListTile(
-                value: value1,
-                onChanged: (bool value) {
-                  setState(() {
-                    value1 = value;
-                  });
-                },
-                title: Text('1A'),
-                activeColor: Colors.blue[500],
-              ),
-              CheckboxListTile(
-                value: value2,
-                onChanged: (bool value) {
-                  setState(() {
-                    value2 = value;
-                  });
-                },
-                title: Text('1B'),
-                activeColor: Colors.blue[500],
+              CheckboxGroup(
+
+                labels: liste,
+                onSelected: (List<String> checked) => [ 
+                _check=checked,
+                print(_check),
+                print(checked),
+                ]
               ),
               RaisedButton(
                   color: Colors.blue[500],

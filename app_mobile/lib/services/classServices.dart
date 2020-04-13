@@ -5,7 +5,7 @@ class ClassService {
   
   // collection reference
   final CollectionReference classCollection =
-      Firestore.instance.collection('notices');
+      Firestore.instance.collection('classes');
 
   Future getAllClasses() async {
     classCollection.getDocuments().then((snapshot) => {
