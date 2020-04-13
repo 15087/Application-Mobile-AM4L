@@ -11,7 +11,7 @@ class _HomePrincipalState extends State<HomePrincipal> {
   final AuthService _auth = AuthService();
 
   String title = '';
-  String text = '';
+  String body = '';
   bool value1 = false;
   bool value2 = false;
   bool value3 = false;
@@ -53,7 +53,7 @@ class _HomePrincipalState extends State<HomePrincipal> {
               TextFormField(
                 decoration: textInputDecoration.copyWith(hintText: 'Notice'),
                 onChanged: (val) {
-                  setState(() => text = val);
+                  setState(() => body = val);
                 },
               ),
               CheckboxListTile(

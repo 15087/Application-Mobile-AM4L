@@ -8,10 +8,10 @@ class NoticeService {
   final CollectionReference noticeCollection =
       Firestore.instance.collection('notices');
 
-  Future updateNoticeData(String title, String body) async {
-    return await noticeCollection.document(uid).setData({
-      'title': title,
-      'body': body,
-    });
+  Future updateNoticeData(
+      String title, String body, List<String> classes) async {
+    return await noticeCollection
+        .document(uid)
+        .setData({'title': title, 'body': body, 'class': classes});
   }
 }
