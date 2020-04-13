@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class Classes {
+class Class {
   final String id;
   final String name;
 
-  Classes(DocumentSnapshot snapshot)
+  Class(DocumentSnapshot snapshot)
     : id = snapshot.documentID,
       name = snapshot.data['name'];
 
