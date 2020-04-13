@@ -1,16 +1,35 @@
+import 'package:app_mobile/models/notice.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class NoticeService {
   final String uid;
-  NoticeService({this.uid});
+  final String classUid;
+  NoticeService({this.uid, this.classUid});
 
-  // collection reference
-  // TODO: fix the reference 
-  final CollectionReference noticeCollection =
-      Firestore.instance.collection('notices');
+  // get notices stream (snapshot)
+  Stream<QuerySnapshot> get notices {
+    return Firestore.instance
+        .collection('classes')
+        .document(classUid)
+        .collection('notices')
+        .snapshots();
+  }
+
+  // convert notices list from snapshot
+  List<Notice> _noticeListFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.documents.map((doc) {
+      return Notice(
+          uid: doc.documentID,
+          title: doc.data['title'] ?? '',
+          body: doc.data['body'] ?? '');
+    }).toList();
+  }
 
   Future updateNoticeData(String title, String body) async {
-    return await noticeCollection
+    return await Firestore.instance
+        .collection('classes')
+        .document(classUid)
+        .collection('notices')
         .document(uid)
         .setData({'title': title, 'body': body});
   }
