@@ -7,13 +7,18 @@ class NoticeService {
   NoticeService({this.uid, this.classUid});
 
   // get notices stream (snapshot)
-  Stream<QuerySnapshot> get notices {
+  Stream<List<Notice>> get notices {
     return Firestore.instance
         .collection('classes')
         .document(classUid)
         .collection('notices')
-        .snapshots();
+        .snapshots()
+        .map(_noticeListFromSnapshot);
   }
+  // FIXME: add the following code to the screen code when the list of notices of a particular class is needed
+  //   Widget build(BuildContext context) {
+  //    return StreamProvider<List<Notice>>.value(
+  //     value: NoticeService(classUid : classUid).notices,
 
   // convert notices list from snapshot
   List<Notice> _noticeListFromSnapshot(QuerySnapshot snapshot) {
