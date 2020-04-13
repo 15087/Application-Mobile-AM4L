@@ -13,4 +13,8 @@ class UserService {
       'classes': classes,
     });
   }
+
+  Stream<QuerySnapshot> get classes {
+    return userCollection.snapshots();
+  }
 }
