@@ -5,6 +5,7 @@ class NoticeService {
   NoticeService({this.uid});
 
   // collection reference
+  // TODO: fix the reference 
   final CollectionReference noticeCollection =
       Firestore.instance.collection('notices');
 
