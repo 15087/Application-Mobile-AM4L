@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:app_mobile/models/notice.dart';
+import 'package:app_mobile/screens/home/components/notice_tile.dart';
 
 class NoticeList extends StatefulWidget {
   @override
@@ -11,11 +12,12 @@ class _NoticeListState extends State<NoticeList> {
   @override
   Widget build(BuildContext context) {
     final notices = Provider.of<List<Notice>>(context);
-    notices.forEach((notice) {
-      print(notice.uid);
-      print(notice.title);
-      print(notice.body);
-    });
-    return Container();
+
+    return ListView.builder(
+      itemCount: notices.length,
+      itemBuilder: (context, index) {
+        return NoticeTile(notice: notices[index]);
+      },
+    );
   }
 }
