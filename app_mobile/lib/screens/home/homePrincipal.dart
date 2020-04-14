@@ -2,6 +2,7 @@ import 'package:app_mobile/services/auth.dart';
 import 'package:app_mobile/shared/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:grouped_buttons/grouped_buttons.dart';
+import 'package:app_mobile/services/classServices.dart';
 
 class HomePrincipal extends StatefulWidget {
   _HomePrincipalState createState() => _HomePrincipalState();
@@ -9,8 +10,9 @@ class HomePrincipal extends StatefulWidget {
 
 class _HomePrincipalState extends State<HomePrincipal> {
   final AuthService _auth = AuthService();
-  var _classes = List();
+
   var _check = List();
+
 
   String title = '';
   String body = '';
@@ -18,8 +20,6 @@ class _HomePrincipalState extends State<HomePrincipal> {
 
   @override
   Widget build(BuildContext context) {
-    var liste = new List<String>.from(_classes);
-    print(liste);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -58,7 +58,7 @@ class _HomePrincipalState extends State<HomePrincipal> {
                   setState(() => body = val);
                 },
               ),
-              CheckboxGroup(
+              /*CheckboxGroup(
 
                 labels: liste,
                 onSelected: (List<String> checked) => [ 
@@ -66,7 +66,7 @@ class _HomePrincipalState extends State<HomePrincipal> {
                 print(_check),
                 print(checked),
                 ]
-              ),
+              ),*/
               RaisedButton(
                   color: Colors.blue[500],
                   child: Text(
