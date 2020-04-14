@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:grouped_buttons/grouped_buttons.dart';
 import 'package:provider/provider.dart';
+import 'package:app_mobile/models/classLabel.dart';
 
 class ClassList extends StatefulWidget {
   @override
@@ -8,20 +9,22 @@ class ClassList extends StatefulWidget {
 }
 
 class _ClassListState extends State<ClassList> {
+  List<String> _classLabels = List<String>();
+  List<String> _selectedClasses = List<String>();
   @override
   Widget build(BuildContext context) {
-    final classesSnap = Provider.of<QuerySnapshot>(context);
-    final List<String> _classes = [];
-
-    for (var doc in classesSnap.documents) {
-      _classes.add(doc.documentID);
+    final classes = Provider.of<List<ClassLabel>>(context);
+    for (var clas in classes) {
+      _classLabels.add(clas.uid);
     }
 
-    return ListView.builder(
-      itemCount: _classes.length,
-      itemBuilder: (context, index) {
-        return ClassTitle(classe: _classes[index]);
-      },
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8.0),
+      child: CheckboxGroup(
+        labels: _classLabels,
+        onSelected: (List<String> selectedClasses) =>
+            [_selectedClasses = selectedClasses, print(_selectedClasses)],
+      ),
     );
   }
 }

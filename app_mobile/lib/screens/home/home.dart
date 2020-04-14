@@ -1,11 +1,13 @@
+import 'package:app_mobile/models/classLabel.dart';
+import 'package:app_mobile/screens/home/components/class_list.dart';
 import 'package:app_mobile/screens/home/components/notice_list.dart';
 import 'package:app_mobile/screens/home/settings_form.dart';
 import 'package:app_mobile/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:app_mobile/models/notice.dart';
+import '../../services/classServices.dart';
 import '../../services/noticeServices.dart';
-import 'package:app_mobile/screens/home/components/notice_list.dart';
 
 class Home extends StatelessWidget {
   final AuthService _auth = AuthService();
@@ -16,9 +18,12 @@ class Home extends StatelessWidget {
       showModalBottomSheet(
           context: context,
           builder: (context) {
-            return Container(
-              padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 6.0),
-              child: SettingsForm(),
+            return StreamProvider<List<ClassLabel>>.value(
+              value: ClassService().classes,
+              child: Scaffold(
+                // padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 6.0),
+                body: ClassList(),
+              ),
             );
           });
     }
