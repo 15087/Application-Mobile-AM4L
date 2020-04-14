@@ -1,3 +1,4 @@
+import 'package:app_mobile/screens/home/settings_form.dart';
 import 'package:app_mobile/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:app_mobile/services/userServices.dart';
@@ -17,7 +18,7 @@ class Home extends StatelessWidget {
       showModalBottomSheet(context: context, builder: (context) {
         return Container(
           padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 6.0),
-          child: Text('bottom sheet'),
+          child: SettingsForm(),
         );
       });
     }
