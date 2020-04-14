@@ -10,15 +10,18 @@ class ClassList extends StatefulWidget {
 class _ClassListState extends State<ClassList> {
   @override
   Widget build(BuildContext context) {
+    final classesSnap = Provider.of<QuerySnapshot>(context);
+    final List<String> _classes = [];
 
-    final classes = Provider.of<QuerySnapshot>(context);
-
-    for (var doc in classes.documents){
-      print(doc.data);
+    for (var doc in classesSnap.documents) {
+      _classes.add(doc.documentID);
     }
 
-    return Container(
-      
+    return ListView.builder(
+      itemCount: _classes.length,
+      itemBuilder: (context, index) {
+        return ClassTitle(classe: _classes[index]);
+      },
     );
   }
 }
