@@ -119,7 +119,7 @@ class _HomePrincipalState extends State<HomePrincipal> {
                       if (_formKey.currentState.validate()) {
                         Firestore.instance
                             .collection('classes')
-                            .document()
+                            .document('1A')
                             .collection('notices')
                             .document()
                             .setData(test);
