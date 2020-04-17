@@ -1,11 +1,10 @@
-import 'package:app_mobile/models/notice.dart';
+//import 'package:app_mobile/models/notice.dart';
 import 'package:app_mobile/services/auth.dart';
-import 'package:app_mobile/services/noticeServices.dart';
 import 'package:app_mobile/shared/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-//import 'package:grouped_buttons/grouped_buttons.dart';
+//import 'package:provider/provider.dart';
+import 'package:grouped_buttons/grouped_buttons.dart';
 
 class HomePrincipal extends StatefulWidget {
   _HomePrincipalState createState() => _HomePrincipalState();
@@ -15,20 +14,41 @@ class _HomePrincipalState extends State<HomePrincipal> {
 
   final AuthService _auth = AuthService();
   
-
-  //var _check = List();
-  final Firestore _db = Firestore.instance;
-
-
+  final _formKey = GlobalKey<FormState>();
+  final _body = TextEditingController();
+  final _title = TextEditingController();
   String title = '';
   String body = '';
+  var _classes = List() ;
 
+  var _checked = List(); 
 
   @override
+    void dispose() {
+    _body.dispose();
+    _title.dispose();
+    //_classes.dispose();
+    super.dispose();
+  }
+  Iterable<int> range(int low, int high) sync* {
+    for (int i = low; i < high; ++i) {
+      yield i;
+    }
+  }
+  @override
+  void initState()  {
+    super.initState();
+     Firestore.instance.collection('classes').getDocuments().then((snapshot) => {
+      for (final i in range(0, snapshot.documents.length)) {
+        _classes.add(snapshot.documents[i].documentID.toString()),
+        print(i),
+        print(_classes[i]),
+      },
+    });
+  }
   Widget build(BuildContext context) {
-    return StreamProvider<List<Notice>>.value(
-      value: NoticeService(classUid: "1A").notices,
-      child: Scaffold(
+    var list = new List<String>.from(_classes);
+    return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
           title: Text('School4All - Admin'),
@@ -43,52 +63,78 @@ class _HomePrincipalState extends State<HomePrincipal> {
                 label: Text('Logout'))
           ],
         ),
-        body: Container(
-          child: Form(
-            child: Column(
-              children: <Widget>[
-                SizedBox(
-                  height: 20.0,
-                ),
-                TextFormField(
-                  decoration: textInputDecoration.copyWith(hintText: 'Title'),
-                  onChanged: (val) {
-                    setState(() => title = val);
-                  },
-                ),
-                SizedBox(
-                  height: 20.0,
-                ),
-                TextFormField(
-                  decoration: textInputDecoration.copyWith(hintText: 'Notice', contentPadding: EdgeInsets.all(50.0)),
-                  onChanged: (val) {
-                    setState(() => body = val);
-                  },
-                ),
-                Row(
-                  children: <Widget>[
-                    RaisedButton(
-                        color: Colors.blue[500],
-                        child: Text(
-                          'Create notice',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        onPressed: () async {
-                          return await Firestore.instance
-                             .collection('classes')
-                             .document('1A')
-                             .collection('notices')
-                             .setData({
-                               'title': title, 
-                               'body': body});
-                        }),
+        body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: <Widget>[
+               Expanded(
+                  child: Column(
+                children: <Widget>[
+
+                  TextFormField(
+                    controller: _title,
+                    decoration: textInputDecoration.copyWith(hintText: 'Title'),
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Please enter a title';
+                      }
+                      return null;
+                    },
+                  ),
+                  SizedBox(height: 20.0),
+                  TextFormField(
+                    controller: _body,
+                    decoration: textInputDecoration.copyWith(hintText: 'Description'),
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Please enter a description';
+                      }
+                      return null;
+                    },
+                  ),
+                  CheckboxGroup(
+                        labels: list,
+                        onSelected: (List<String> checked) => [ 
+                        _checked=checked,
+                        print(_checked),
+                        print(checked),
+                      ]
+                    ),
                   ],
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
+                )   
+              ),
+              RaisedButton(
+                    onPressed: () async {
+                      print(_checked);
+                      var classes = new List<String>.from(_checked);
+                      print(classes.toList());
+                      var test = {
+                        'Title': _title.text,
+                        'Description':_body.text,
+                        'classes': classes,
+                      };
+
+                      if (_formKey.currentState.validate()) {
+                        Firestore.instance
+                            .collection('classes')
+                            .document()
+                            .collection('notices')
+                            .document()
+                            .setData(test);
+
+                        Navigator.pop(context);
+                        print("mouk en bermuda");
+                        print(_checked);
+                      }
+                    },
+                    child: Text("Ajouter"),
+                  ),
+            ]
+           ),
+        )
+      )
     );
   }
 }
