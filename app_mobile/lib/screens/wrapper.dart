@@ -1,5 +1,6 @@
 import 'package:app_mobile/screens/authenticate/authenticate.dart';
 import 'package:app_mobile/screens/home/home.dart';
+import 'package:app_mobile/screens/home/home2.dart';
 import 'package:app_mobile/screens/home/homePrincipal.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
