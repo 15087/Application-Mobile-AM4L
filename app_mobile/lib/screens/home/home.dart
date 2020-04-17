@@ -1,7 +1,6 @@
 import 'package:app_mobile/models/classLabel.dart';
 import 'package:app_mobile/screens/home/components/class_list.dart';
 import 'package:app_mobile/screens/home/components/notice_list.dart';
-import 'package:app_mobile/screens/home/settings_form.dart';
 import 'package:app_mobile/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

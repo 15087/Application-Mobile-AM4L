@@ -6,6 +6,10 @@ class NoticeService {
   final String classUid;
   NoticeService({this.uid, this.classUid});
 
+    // collection reference
+  final CollectionReference noticeCollection =
+      Firestore.instance.collection('notices');
+
   // get notices stream (snapshot)
   Stream<List<Notice>> get notices {
     return Firestore.instance
@@ -27,11 +31,16 @@ class NoticeService {
   }
 
   Future updateNoticeData(String title, String body) async {
-    return await Firestore.instance
+    try {
+      return await Firestore.instance
         .collection('classes')
         .document(classUid)
         .collection('notices')
         .document(uid)
-        .setData({'title': title, 'body': body});
+        .setData({'title': title, 'body': body});}
+   catch (e){   
+      print(e.toString());
+      return null;
+        }
   }
 }
