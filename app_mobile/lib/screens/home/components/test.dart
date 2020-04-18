@@ -9,9 +9,11 @@ class Test extends StatefulWidget {
 
 class _TestState extends State<Test> {
 
-  List<String> _classLabels = List<String>();
+  List<String> _selectedClasses = List<String>();
   
   Map<String, bool> someMap = {  };
+
+
 
 
   @override
@@ -22,8 +24,8 @@ class _TestState extends State<Test> {
     }
 
     return new Scaffold(
-      appBar: new AppBar(title: new Text('CheckboxListTile demo')),
-      body: new ListView(
+      appBar: AppBar(title: new Text('Add classe(s)')),
+      body: ListView(
         children: someMap.keys.map((String key) {
           return new CheckboxListTile(
             title: new Text(key),
