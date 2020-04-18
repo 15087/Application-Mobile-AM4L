@@ -17,8 +17,6 @@ class _HomePrincipalState extends State<HomePrincipal> {
   final _formKey = GlobalKey<FormState>();
   final _body = TextEditingController();
   final _title = TextEditingController();
-  String title = '';
-  String body = '';
   var _classes = List() ;
 
   var _checked = List(); 
@@ -94,14 +92,20 @@ class _HomePrincipalState extends State<HomePrincipal> {
                       return null;
                     },
                   ),
-                  CheckboxGroup(
-                        labels: list,
-                        onSelected: (List<String> checked) => [ 
-                        _checked=checked,
-                        print(_checked),
-                        print(checked),
-                      ]
+                  Expanded(
+                    child: Column(
+                      children: <Widget>[
+                        CheckboxGroup(
+                              labels: list,
+                              onSelected: (List<String> checked) => [ 
+                              _checked=checked,
+                              print(_checked),
+                              print(checked),
+                            ]
+                          ),
+                      ],
                     ),
+                  ),
                   ],
                 )   
               ),
@@ -118,8 +122,6 @@ class _HomePrincipalState extends State<HomePrincipal> {
 
                       if (_formKey.currentState.validate()) {
                         Firestore.instance
-                            .collection('classes')
-                            .document('1A')
                             .collection('notices')
                             .document()
                             .setData(test);

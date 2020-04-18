@@ -1,6 +1,6 @@
 import 'package:app_mobile/models/notice.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:quiver/iterables.dart';
+//import 'package:quiver/iterables.dart';
 
 class NoticeService {
   final String uid;

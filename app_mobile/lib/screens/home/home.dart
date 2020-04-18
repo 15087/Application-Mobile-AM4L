@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:app_mobile/models/notice.dart';
 import '../../services/classServices.dart';
 import '../../services/noticeServices.dart';
+import 'components/test.dart';
 
 class Home extends StatelessWidget {
   final AuthService _auth = AuthService();
@@ -49,7 +50,7 @@ class Home extends StatelessWidget {
             )
           ],
         ),
-        body: NoticeList(),
+        body: Test(),
       ),
     );
   }
