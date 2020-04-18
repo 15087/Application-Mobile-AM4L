@@ -20,4 +20,8 @@ class ClassService {
        uid: doc.documentID);
    }).toList();
   }
+
+  Future<List<QuerySnapshot>> getAllDocuments() {
+  return  classCollection.snapshots().toList();
+}
 }

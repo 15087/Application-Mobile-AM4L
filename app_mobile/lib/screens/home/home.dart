@@ -28,7 +28,7 @@ class Home extends StatelessWidget {
     }
 
     return StreamProvider<List<Notice>>.value(
-      value: NoticeService(classUid: "1A").notices,
+      value: NoticeService(classUid: "All").notices,
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(

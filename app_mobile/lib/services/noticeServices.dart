@@ -1,10 +1,16 @@
 import 'package:app_mobile/models/notice.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:quiver/iterables.dart';
 
 class NoticeService {
   final String uid;
   final String classUid;
-  NoticeService({this.uid, this.classUid});
+  final List<String> classUidList;
+  List<DocumentSnapshot> listOfList;
+  NoticeService({this.uid, this.classUid, this.classUidList});
+
+  final CollectionReference classCollection =
+      Firestore.instance.collection('classes');
 
     // collection reference
   final CollectionReference noticeCollection =
@@ -24,11 +30,22 @@ class NoticeService {
   List<Notice> _noticeListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.documents.map((doc) {
       return Notice(
-          uid: doc.documentID,
-          title: doc.data['title'] ?? '',
-          body: doc.data['body'] ?? '');
+        uid: doc.documentID,
+        title: doc.data['title'] ?? '',
+        body: doc.data['body'] ?? '',
+      );
     }).toList();
   }
+
+  // //with a list of classes
+  // List<List<Notice>> getAllNotices(List<String> classes) {
+  //   List<CollectionReference> listRefClasses = [];
+  //   for (var i in range(0, classes.length)) {
+  //     listRefClasses.add(
+  //       classCollection.document(classes[i])
+  //     );
+  //   }
+  // }
 
   Future updateNoticeData(String title, String body) async {
     try {
