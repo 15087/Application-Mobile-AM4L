@@ -15,13 +15,9 @@ class ClassService {
 
   // convert classes list from snapshot
   List<ClassLabel> _classListFromSnapshot(QuerySnapshot snapshot) {
-   return snapshot.documents.map((doc) {
-     return ClassLabel(
-       uid: doc.documentID);
-   }).toList();
+    return snapshot.documents.map((doc) {
+      return ClassLabel(uid: doc.documentID);
+    }).toList();
   }
 
-  Future<List<QuerySnapshot>> getAllDocuments() {
-  return  classCollection.snapshots().toList();
-}
 }

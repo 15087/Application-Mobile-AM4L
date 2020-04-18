@@ -1,13 +1,16 @@
-import 'package:app_mobile/models/classLabel.dart';
-import 'package:app_mobile/screens/home/components/class_list.dart';
-import 'package:app_mobile/screens/home/components/notice_list.dart';
-import 'package:app_mobile/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:app_mobile/models/notice.dart';
+
+import 'package:app_mobile/services/auth.dart';
 import '../../services/classServices.dart';
 import '../../services/noticeServices.dart';
-import 'components/test.dart';
+
+import 'package:app_mobile/models/notice.dart';
+import 'package:app_mobile/models/classLabel.dart';
+
+import 'package:app_mobile/widgets/test.dart';
+import 'package:app_mobile/widgets/class_list.dart';
+import 'package:app_mobile/widgets/notice_list.dart';
 
 class Home extends StatelessWidget {
   final AuthService _auth = AuthService();
@@ -28,9 +31,9 @@ class Home extends StatelessWidget {
           });
     }
 
-    return StreamProvider<List<ClassLabel>>.value(
-              value: ClassService().classes,
-              child: Scaffold(
+    return StreamProvider<List<Notice>>.value(
+      value: NoticeService().notices,
+      child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
           title: Text('School4All'),
@@ -50,7 +53,7 @@ class Home extends StatelessWidget {
             )
           ],
         ),
-        body: Test(),
+        body: NoticeList(),
       ),
     );
   }

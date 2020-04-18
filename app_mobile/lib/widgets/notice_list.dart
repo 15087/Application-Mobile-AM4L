@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:app_mobile/models/notice.dart';
-import 'package:app_mobile/screens/home/components/notice_tile.dart';
+import 'package:app_mobile/widgets/notice_tile.dart';
 
 class NoticeList extends StatefulWidget {
   @override
