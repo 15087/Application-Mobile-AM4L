@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:app_mobile/models/classLabel.dart';
 
-
 class ClassList extends StatefulWidget {
   @override
   _ClassListState createState() => _ClassListState();
@@ -24,9 +23,8 @@ class _ClassListState extends State<ClassList> {
       padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8.0),
       child: CheckboxGroup(
         labels: _classLabels,
-        onSelected: (List<String> selectedClasses) => [ 
-                              _selectedClasses=selectedClasses,
-                              print(_selectedClasses)],
+        onSelected: (List<String> selectedClasses) =>
+            [_selectedClasses = selectedClasses, print(_selectedClasses)],
       ),
     );
   }
