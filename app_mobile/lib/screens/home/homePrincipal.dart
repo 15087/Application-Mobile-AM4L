@@ -58,15 +58,6 @@ class _HomePrincipalState extends State<HomePrincipal> {
                   setState(() => body = val);
                 },
               ),
-              /*CheckboxGroup(
-
-                labels: liste,
-                onSelected: (List<String> checked) => [ 
-                _check=checked,
-                print(_check),
-                print(checked),
-                ]
-              ),*/
               RaisedButton(
                   color: Colors.blue[500],
                   child: Text(
