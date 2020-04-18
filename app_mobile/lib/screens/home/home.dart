@@ -22,15 +22,15 @@ class Home extends StatelessWidget {
               value: ClassService().classes,
               child: Scaffold(
                 // padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 6.0),
-                body: ClassList(),
+                body: Test(),
               ),
             );
           });
     }
 
-    return StreamProvider<List<Notice>>.value(
-      value: NoticeService(classUid: "All").notices,
-      child: Scaffold(
+    return StreamProvider<List<ClassLabel>>.value(
+              value: ClassService().classes,
+              child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
           title: Text('School4All'),
