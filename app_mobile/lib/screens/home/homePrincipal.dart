@@ -1,10 +1,12 @@
 //import 'package:app_mobile/models/notice.dart';
+import 'package:app_mobile/models/classLabel.dart';
 import 'package:app_mobile/services/auth.dart';
+import 'package:app_mobile/services/classServices.dart';
 import 'package:app_mobile/shared/constants.dart';
+import 'package:app_mobile/widgets/class_list.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-//import 'package:provider/provider.dart';
-import 'package:grouped_buttons/grouped_buttons.dart';
+import 'package:provider/provider.dart';
 
 class HomePrincipal extends StatefulWidget {
   _HomePrincipalState createState() => _HomePrincipalState();
@@ -16,9 +18,9 @@ class _HomePrincipalState extends State<HomePrincipal> {
   final _formKey = GlobalKey<FormState>();
   final _body = TextEditingController();
   final _title = TextEditingController();
-  var _classes = List();
 
-  var _checked = List();
+  List<String> _selectedClasses = List<String>();
+
 
   @override
   void dispose() {
@@ -28,31 +30,29 @@ class _HomePrincipalState extends State<HomePrincipal> {
     super.dispose();
   }
 
-  Iterable<int> range(int low, int high) sync* {
-    for (int i = low; i < high; ++i) {
-      yield i;
-    }
-  }
+
 
   @override
-  void initState() {
-    super.initState();
-    Firestore.instance.collection('classes').getDocuments().then((snapshot) => {
-          for (final i in range(0, snapshot.documents.length))
-            {
-              _classes.add(snapshot.documents[i].documentID.toString()),
-              print(i),
-              print(_classes[i]),
-            },
-        });
-  }
+
 
   Widget build(BuildContext context) {
-    var list = new List<String>.from(_classes);
+    void _showAddClassesPanel() {
+      showModalBottomSheet(
+          context: context,
+          builder: (context) {
+            return StreamProvider<List<ClassLabel>>.value(
+              value: ClassService().classes,
+              child: Scaffold(
+                // padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 6.0),
+                body: ClassList(),
+              ),
+            );
+          });
+    }
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          title: Text('School4All - Admin'),
+          title: Text('School4All'),
           backgroundColor: Colors.blue[100],
           elevation: 0.0,
           actions: <Widget>[
@@ -61,7 +61,7 @@ class _HomePrincipalState extends State<HomePrincipal> {
                   await _auth.signOut();
                 },
                 icon: Icon(Icons.person),
-                label: Text('Logout'))
+                label: Text('Logout')),
           ],
         ),
         body: Padding(
@@ -96,46 +96,23 @@ class _HomePrincipalState extends State<HomePrincipal> {
                         return null;
                       },
                     ),
-                    Expanded(
-                      child: Column(
-                        children: <Widget>[
-                          CheckboxGroup(
-                              labels: list,
-                              onSelected: (List<String> checked) => [
-                                    _checked = checked,
-                                    print(_checked),
-                                    print(checked),
-                                  ]),
-                        ],
-                      ),
-                    ),
-                  ],
-                )),
+                    RaisedButton(
+                    onPressed: () => _showAddClassesPanel(),
+                    child: Text('Add classe(s)')
+                    )],
+                )
+                ),
                 RaisedButton(
                   onPressed: () async {
-                    print(_checked);
-                    var classes = new List<String>.from(_checked);
-                    print(classes.toList());
-                    var test = {
-                      'Title': _title.text,
-                      'Description': _body.text,
-                      'classes': classes,
-                    };
-
-                    if (_formKey.currentState.validate()) {
-                      Firestore.instance
-                          .collection('notices')
-                          .document()
-                          .setData(test);
-
-                      Navigator.pop(context);
-                      print("mouk en bermuda");
-                      print(_checked);
-                    }
-                  },
+                    print(_selectedClasses);
+                  
+                    },
                   child: Text("Ajouter"),
                 ),
-              ]),
-            )));
+              ]
+              ),
+            )
+            ),
+      );
   }
 }
