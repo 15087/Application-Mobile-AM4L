@@ -1,3 +1,4 @@
+import 'package:app_mobile/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserService {
@@ -14,7 +15,21 @@ class UserService {
     });
   }
 
+  // user data from snapshots
+  UserData _userDataFromSnapshot(DocumentSnapshot snapshot) {
+    return UserData(
+      uid: uid,
+      classes: snapshot.data['classes']
+    );
+  }
+
   Stream<QuerySnapshot> get classes {
     return userCollection.snapshots();
+  }
+
+  // get user doc stream
+  Stream<UserData> get userData {
+    return userCollection.document(uid).snapshots()
+      .map(_userDataFromSnapshot);
   }
 }

@@ -1,3 +1,4 @@
+import 'package:app_mobile/widgets/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -8,7 +9,7 @@ import '../../services/noticeServices.dart';
 import 'package:app_mobile/models/notice.dart';
 import 'package:app_mobile/models/classLabel.dart';
 
-import 'package:app_mobile/widgets/test.dart';
+
 import 'package:app_mobile/widgets/class_list.dart';
 import 'package:app_mobile/widgets/notice_list.dart';
 
@@ -25,7 +26,7 @@ class Home extends StatelessWidget {
               value: ClassService().classes,
               child: Scaffold(
                 // padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 6.0),
-                body: Test(),
+                body: Settings(),
               ),
             );
           });

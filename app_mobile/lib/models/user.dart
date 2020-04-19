@@ -3,3 +3,13 @@ class User {
 
   User( {this.uid});
 }
+
+class UserData {
+
+  final String uid;
+  final List classes;
+
+
+  UserData({ this.uid,  this.classes });
+
+}
