@@ -12,8 +12,21 @@ class _TestState extends State<Test> {
   List<String> _selectedClasses = List<String>();
   
   Map<String, bool> someMap = {  };
-
-
+  void _onClassesSelected(bool value, key) {
+    if (value == true) {
+      setState(() {
+        someMap[key] = value;
+        _selectedClasses.add(key);
+        print(_selectedClasses);
+      });
+    } else {
+      setState(() {
+        someMap[key] = value;
+        _selectedClasses.remove(key);
+        print(_selectedClasses);
+      });
+    }
+  }
 
 
   @override
@@ -23,16 +36,16 @@ class _TestState extends State<Test> {
       someMap.putIfAbsent(clas.uid, () => false);
     }
 
-    return new Scaffold(
-      appBar: AppBar(title: new Text('Add classe(s)')),
+    return  Scaffold(
+      appBar: AppBar(title: Text('Add classe(s)')),
       body: ListView(
         children: someMap.keys.map((String key) {
-          return new CheckboxListTile(
-            title: new Text(key),
+          return CheckboxListTile(
+            title: Text(key),
             value: someMap[key],
             onChanged: (bool value) {
               setState(() {
-                someMap[key] = value;
+                _onClassesSelected(value, key);
               });
             },
           );
