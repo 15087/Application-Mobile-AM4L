@@ -9,7 +9,7 @@ import 'package:app_mobile/models/notice.dart';
 import 'package:app_mobile/models/classLabel.dart';
 
 
-import 'package:app_mobile/widgets/class_list.dart';
+//import 'package:app_mobile/widgets/class_list.dart';
 import 'package:app_mobile/widgets/notice_list.dart';
 import 'package:app_mobile/widgets/settings.dart';
 

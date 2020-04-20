@@ -11,7 +11,7 @@ class NoticeList extends StatefulWidget {
 class _NoticeListState extends State<NoticeList> {
   @override
   Widget build(BuildContext context) {
-    final notices = Provider.of<List<Notice>>(context);
+    final notices = Provider.of<List<Notice>>(context) ?? [];
 
     return ListView.builder(
       itemCount: notices.length,
