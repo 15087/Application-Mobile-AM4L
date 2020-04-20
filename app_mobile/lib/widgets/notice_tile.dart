@@ -40,7 +40,8 @@ class NoticeTile extends StatelessWidget {
             // trailing: Text(_classesToText(notice.classes)),
             // trailing: Text(notice.classes.toList().toString()),
             // FIXME: limit the size of the trailing !
-            trailing: Text(notice.classes.toString()),
+            trailing: Text(notice.classes.toString(),
+            overflow: TextOverflow.ellipsis,),
           ),
         ));
   }
