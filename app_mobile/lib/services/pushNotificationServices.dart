@@ -29,6 +29,7 @@ class PushNotificationService {
     for (var topic in topics) {
       try {
         subscribe(topic);
+        print("Subscribe");
       } catch (e) {
         print(e.toString());
         print("Subscribe Error");
@@ -41,6 +42,7 @@ class PushNotificationService {
     for (var topic in topics) {
       try {
         unsubscribe(topic);
+        print("Unsubscribe");
       } catch (e) {
         print(e.toString());
         print("Unsubscribe Error");
