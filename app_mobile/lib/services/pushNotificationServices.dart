@@ -36,4 +36,17 @@ class PushNotificationService {
       }
     }
   }
+
+  void unsubscribeFromSet(Set<String> topics) {
+    for (var topic in topics) {
+      try {
+        unsubscribe(topic);
+        print("Unsubscribe");
+      } catch (e) {
+        print(e.toString());
+        print("Unsubscribe Error");
+        return null;
+      }
+    }
+  }
 }

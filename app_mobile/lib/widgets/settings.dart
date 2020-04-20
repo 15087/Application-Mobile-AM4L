@@ -12,7 +12,7 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
-  final List<String> classLabels = List<String>();
+  final Set<String> _classLabels = Set<String>();
   List<String> _selectedClasses = List<String>();
 
   Map<String, bool> someMap = {};
@@ -37,9 +37,8 @@ class _SettingsState extends State<Settings> {
     final classes = Provider.of<List<ClassLabel>>(context);
     for (var clas in classes) {
       someMap.putIfAbsent(clas.uid, () => false);
-      // FIXME: put if absenti in list or use set, infinite list generating issue.
-      // print(classLabels);
-      classLabels.add(clas.uid);
+      print(_classLabels);
+      _classLabels.add(clas.uid);
     }
 
     final user = Provider.of<User>(context);
@@ -58,10 +57,9 @@ class _SettingsState extends State<Settings> {
                       await UserService(uid: user.uid)
                           .updateUserData(_selectedClasses ?? userData.classes);
                       PushNotificationService()
-                          .unsubscribeFromList(classLabels);
+                          .unsubscribeFromSet(_classLabels);
                       PushNotificationService()
                           .subscribeToList(_selectedClasses);
-                      print("Subscribed");
                       Navigator.pop(context);
                     },
                     icon: Icon(Icons.playlist_add),
