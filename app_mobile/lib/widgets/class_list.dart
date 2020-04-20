@@ -8,7 +8,6 @@ class ClassList extends StatefulWidget {
 }
 
 class _ClassListState extends State<ClassList> {
-  List<String> _classLabels = List<String>();
   List<String> _selectedClasses = List<String>();
   Map<String, bool> someMap = {};
   void _onClassesSelected(bool value, key) {

@@ -4,6 +4,7 @@ import 'package:app_mobile/services/userServices.dart';
 import 'package:app_mobile/shared/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:app_mobile/services/pushNotificationServices.dart';
 
 class Settings extends StatefulWidget {
   @override
@@ -11,7 +12,9 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
+  List<String> _classLabels = List<String>();
   List<String> _selectedClasses = List<String>();
+  PushNotificationService notifServ;
 
   Map<String, bool> someMap = {};
   void _onClassesSelected(bool value, key) {
@@ -35,6 +38,7 @@ class _SettingsState extends State<Settings> {
     final classes = Provider.of<List<ClassLabel>>(context);
     for (var clas in classes) {
       someMap.putIfAbsent(clas.uid, () => false);
+      _classLabels.add(clas.uid);
     }
 
     final user = Provider.of<User>(context);
@@ -52,6 +56,8 @@ class _SettingsState extends State<Settings> {
                     onPressed: () async {
                       await UserService(uid: user.uid)
                           .updateUserData(_selectedClasses ?? userData.classes);
+                      notifServ.unsubscribeFromList(_classLabels);
+                      notifServ.subscribeToList(_selectedClasses);
                       Navigator.pop(context);
                     },
                     icon: Icon(Icons.playlist_add),
