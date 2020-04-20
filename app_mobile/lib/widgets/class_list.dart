@@ -9,10 +9,9 @@ class ClassList extends StatefulWidget {
 }
 
 class _ClassListState extends State<ClassList> {
-
   final List<String> _selectedClasses = List<String>();
-  
-    Map<String, bool> someMap = {  };
+
+  Map<String, bool> someMap = {};
 
   void _onClassesSelected(bool value, key) {
     if (value == true) {
@@ -30,8 +29,6 @@ class _ClassListState extends State<ClassList> {
     }
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     final classes = Provider.of<List<ClassLabel>>(context);
@@ -42,34 +39,34 @@ class _ClassListState extends State<ClassList> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Add classe(s)'),
-                    actions: <Widget>[
-                      FlatButton.icon(
-                        onPressed: () async {
-                           
-                          Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (BuildContext context) => HomePrincipal(valuee: _selectedClasses)));
-                        },
-                        icon: Icon(Icons.playlist_add),
-                        color: Colors.blue[20],
-                        label: Text('Add'), )],),
+        actions: <Widget>[
+          FlatButton.icon(
+            onPressed: () async {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                          HomePrincipal(valuee: _selectedClasses)));
+            },
+            icon: Icon(Icons.playlist_add),
+            color: Colors.blue[20],
+            label: Text('Add'),
+          )
+        ],
+      ),
       body: ListView(
-                    children: someMap.keys.map((String key) {
-                      return CheckboxListTile(
-                        title: Text(key),
-                        value: someMap[key],
-                        onChanged: (bool value) {
-                          setState(() {
-                            _onClassesSelected(value, key);
-                          });
-                        },
-                      );
-                    }).toList(),
-                  ),
+        children: someMap.keys.map((String key) {
+          return CheckboxListTile(
+            title: Text(key),
+            value: someMap[key],
+            onChanged: (bool value) {
+              setState(() {
+                _onClassesSelected(value, key);
+              });
+            },
+          );
+        }).toList(),
+      ),
     );
   }
 }
-
-
-

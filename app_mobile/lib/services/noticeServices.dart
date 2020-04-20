@@ -31,8 +31,8 @@ class NoticeService {
   }
 
   // user data from snapshots
-  NoticeData _noticeDataFromSnapshot(DocumentSnapshot snapshot) {
-    return NoticeData(
+  Notice _noticeDataFromSnapshot(DocumentSnapshot snapshot) {
+    return Notice(
       uid: uid,
       title: snapshot.data['title'],
       body: snapshot.data['body'],
@@ -52,7 +52,7 @@ class NoticeService {
   }
 
   // get user doc stream
-  Stream<NoticeData> get noticeData {
+  Stream<Notice> get noticeData {
     return noticeCollection.document(uid).snapshots()
       .map(_noticeDataFromSnapshot);
   }

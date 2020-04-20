@@ -12,10 +12,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class HomePrincipal extends StatefulWidget {
+  List<String> valuee = List<String>();
 
- List<String> valuee = List<String>();
-
- HomePrincipal({Key key, this.valuee}) : super (key: key);
+  HomePrincipal({Key key, this.valuee}) : super(key: key);
 
   _HomePrincipalState createState() => _HomePrincipalState();
 }
@@ -27,13 +26,7 @@ class _HomePrincipalState extends State<HomePrincipal> {
   final _body = TextEditingController();
   final _title = TextEditingController();
 
-   List<String> classes = List<String>();
-
-
- 
- 
-  
-
+  List<String> classes = List<String>();
 
   @override
   void dispose() {
@@ -43,11 +36,7 @@ class _HomePrincipalState extends State<HomePrincipal> {
     super.dispose();
   }
 
-
-
   @override
-
-
   Widget build(BuildContext context) {
     void _showAddClassesPanel() {
       showModalBottomSheet(
@@ -63,91 +52,84 @@ class _HomePrincipalState extends State<HomePrincipal> {
           });
     }
 
-  final notice = Provider.of<Notice>(context);
-
-    return StreamBuilder<NoticeData>(
-      stream: NoticeService(uid: notice.uid).noticeData,
-      builder:(context, snapshot) {
-        if (snapshot.hasData){
-          return StreamProvider<List<Notice>>.value(
-            value: NoticeService().notices,
-            child: Scaffold(
-                backgroundColor: Colors.white,
-                appBar: AppBar(
-                  title: Text('School4All'),
-                  backgroundColor: Colors.blue[100],
-                  elevation: 0.0,
-                  actions: <Widget>[
-                    FlatButton.icon(
-                        onPressed: () async {
-                          await _auth.signOut();
-                        },
-                        icon: Icon(Icons.person),
-                        label: Text('Logout')),
-                  ],
-                ),
-                body: Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                    child: Form(
-                      key: _formKey,
-                      child: Column(children: <Widget>[
-                        Expanded(
-                            child: Column(
-                          children: <Widget>[
-                            TextFormField(
-                              controller: _title,
-                              decoration:
-                                  textInputDecoration.copyWith(hintText: 'Title'),
-                              validator: (value) {
-                                if (value.isEmpty) {
-                                  return 'Please enter a title';
-                                }
-                                return null;
-                              },
-                            ),
-                            SizedBox(height: 20.0),
-                            TextFormField(
-                              controller: _body,
-                              decoration:
-                                  textInputDecoration.copyWith(hintText: 'Description'),
-                              validator: (value) {
-                                if (value.isEmpty) {
-                                  return 'Please enter a description';
-                                }
-                                return null;
-                              },
-                            ),
-                            RaisedButton(
-                            onPressed: () => _showAddClassesPanel(),
-                            child: Text('Add classe(s)')
-                            )],
-                        )
-                        ),
-                        RaisedButton(
+    return StreamBuilder<List<Notice>>(
+        stream: NoticeService().notices,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return StreamProvider<List<Notice>>.value(
+                value: NoticeService().notices,
+                child: Scaffold(
+                  backgroundColor: Colors.white,
+                  appBar: AppBar(
+                    title: Text('School4All'),
+                    backgroundColor: Colors.blue[100],
+                    elevation: 0.0,
+                    actions: <Widget>[
+                      FlatButton.icon(
                           onPressed: () async {
-                            var title = _title.text;
-                            var body = _body.text;
-                            classes = widget.valuee;
-                            if(_formKey.currentState.validate()){
-                              print("${widget.valuee}");
-                              await NoticeService(uid: notice.uid).updateNoticeData(
-                                title, body, classes);
-                              Navigator.pop(context);
-                            }
-                            
+                            await _auth.signOut();
+                          },
+                          icon: Icon(Icons.person),
+                          label: Text('Logout')),
+                    ],
+                  ),
+                  body: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16.0, vertical: 8.0),
+                      child: Form(
+                        key: _formKey,
+                        child: Column(children: <Widget>[
+                          Expanded(
+                              child: Column(
+                            children: <Widget>[
+                              TextFormField(
+                                controller: _title,
+                                decoration: textInputDecoration.copyWith(
+                                    hintText: 'Title'),
+                                validator: (value) {
+                                  if (value.isEmpty) {
+                                    return 'Please enter a title';
+                                  }
+                                  return null;
+                                },
+                              ),
+                              SizedBox(height: 20.0),
+                              TextFormField(
+                                controller: _body,
+                                decoration: textInputDecoration.copyWith(
+                                    hintText: 'Description'),
+                                validator: (value) {
+                                  if (value.isEmpty) {
+                                    return 'Please enter a description';
+                                  }
+                                  return null;
+                                },
+                              ),
+                              RaisedButton(
+                                  onPressed: () => _showAddClassesPanel(),
+                                  child: Text('Add classe(s)'))
+                            ],
+                          )),
+                          RaisedButton(
+                            onPressed: () async {
+                              var title = _title.text;
+                              var body = _body.text;
+                              classes = widget.valuee;
+                              if (_formKey.currentState.validate()) {
+                                print("${widget.valuee}");
+                                await NoticeService()
+                                    .updateNoticeData(title, body, classes);
+                                Navigator.pop(context);
+                              }
                             },
-                          child: Text("Ajouter"),
-                        ),
-                      ]
-                    ),
-                  )
-                ),
-            )
-          );
-        } 
-      else {return Loading();}
-    }
-  );
- }
+                            child: Text("Ajouter"),
+                          ),
+                        ]),
+                      )),
+                ));
+          } else {
+            return Loading();
+          }
+        });
+  }
 }
