@@ -2,7 +2,6 @@ import 'package:app_mobile/models/classLabel.dart';
 import 'package:app_mobile/models/user.dart';
 import 'package:app_mobile/services/userServices.dart';
 import 'package:app_mobile/shared/loading.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:app_mobile/services/pushNotificationServices.dart';
@@ -15,8 +14,6 @@ class Settings extends StatefulWidget {
 class _SettingsState extends State<Settings> {
   final List<String> classLabels = List<String>();
   List<String> _selectedClasses = List<String>();
-  PushNotificationService notifServ;
-  final FirebaseMessaging _fcm = FirebaseMessaging();
 
   Map<String, bool> someMap = {};
   void _onClassesSelected(bool value, key) {
@@ -41,8 +38,8 @@ class _SettingsState extends State<Settings> {
     for (var clas in classes) {
       someMap.putIfAbsent(clas.uid, () => false);
       // FIXME: put if absenti in list or use set, infinite list generating issue.
-      // classLabels.add(clas.uid);
-      print(classLabels);
+      // print(classLabels);
+      classLabels.add(clas.uid);
     }
 
     final user = Provider.of<User>(context);
@@ -60,8 +57,10 @@ class _SettingsState extends State<Settings> {
                     onPressed: () async {
                       await UserService(uid: user.uid)
                           .updateUserData(_selectedClasses ?? userData.classes);
-                      // notifServ.unsubscribeFromList(classLabels);
-                      _fcm.subscribeToTopic("2A");
+                      PushNotificationService()
+                          .unsubscribeFromList(classLabels);
+                      PushNotificationService()
+                          .subscribeToList(_selectedClasses);
                       print("Subscribed");
                       Navigator.pop(context);
                     },

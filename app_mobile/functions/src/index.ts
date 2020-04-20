@@ -6,7 +6,7 @@ admin.initializeApp();
 const fcm = admin.messaging();
 export const sendToTopicEurope = functions
   .region("europe-west3")
-  .firestore.document("notice/{noticeId}")
+  .firestore.document("notices/{noticeId}")
   .onCreate(async (snapshot) => {
     const notice = snapshot.data();
     // Deploy not working if no if else statement
