@@ -38,7 +38,7 @@ class _ClassListState extends State<ClassList> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add classe(s)'),
+        title: Text('Add class(es)'),
         actions: <Widget>[
           FlatButton.icon(
             onPressed: () async {

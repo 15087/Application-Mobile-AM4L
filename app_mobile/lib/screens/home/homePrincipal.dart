@@ -52,84 +52,72 @@ class _HomePrincipalState extends State<HomePrincipal> {
           });
     }
 
-    return StreamBuilder<List<Notice>>(
-        stream: NoticeService().notices,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return StreamProvider<List<Notice>>.value(
-                value: NoticeService().notices,
-                child: Scaffold(
-                  backgroundColor: Colors.white,
-                  appBar: AppBar(
-                    title: Text('School4All'),
-                    backgroundColor: Colors.blue[100],
-                    elevation: 0.0,
-                    actions: <Widget>[
-                      FlatButton.icon(
-                          onPressed: () async {
-                            await _auth.signOut();
-                          },
-                          icon: Icon(Icons.person),
-                          label: Text('Logout')),
-                    ],
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        title: Text('School4All'),
+        backgroundColor: Colors.blue[100],
+        elevation: 0.0,
+        actions: <Widget>[
+          FlatButton.icon(
+              onPressed: () async {
+                await _auth.signOut();
+              },
+              icon: Icon(Icons.person),
+              label: Text('Logout')),
+        ],
+      ),
+      body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+          child: Form(
+            key: _formKey,
+            child: Column(children: <Widget>[
+              Expanded(
+                  child: Column(
+                children: <Widget>[
+                  TextFormField(
+                    controller: _title,
+                    decoration: textInputDecoration.copyWith(hintText: 'Title'),
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Please enter a title';
+                      }
+                      return null;
+                    },
                   ),
-                  body: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 16.0, vertical: 8.0),
-                      child: Form(
-                        key: _formKey,
-                        child: Column(children: <Widget>[
-                          Expanded(
-                              child: Column(
-                            children: <Widget>[
-                              TextFormField(
-                                controller: _title,
-                                decoration: textInputDecoration.copyWith(
-                                    hintText: 'Title'),
-                                validator: (value) {
-                                  if (value.isEmpty) {
-                                    return 'Please enter a title';
-                                  }
-                                  return null;
-                                },
-                              ),
-                              SizedBox(height: 20.0),
-                              TextFormField(
-                                controller: _body,
-                                decoration: textInputDecoration.copyWith(
-                                    hintText: 'Description'),
-                                validator: (value) {
-                                  if (value.isEmpty) {
-                                    return 'Please enter a description';
-                                  }
-                                  return null;
-                                },
-                              ),
-                              RaisedButton(
-                                  onPressed: () => _showAddClassesPanel(),
-                                  child: Text('Add classe(s)'))
-                            ],
-                          )),
-                          RaisedButton(
-                            onPressed: () async {
-                              var title = _title.text;
-                              var body = _body.text;
-                              classes = widget.valuee;
-                              if (_formKey.currentState.validate()) {
-                                print("${widget.valuee}");
-                                await NoticeService()
-                                    .updateNoticeData(title, body, classes);
-                                Navigator.pop(context);
-                              }
-                            },
-                            child: Text("Ajouter"),
-                          ),
-                        ]),
-                      )),
-                ));
-          } else {
-            return Loading();
-          }
-        });
+                  SizedBox(height: 20.0),
+                  TextFormField(
+                    controller: _body,
+                    decoration:
+                        textInputDecoration.copyWith(hintText: 'Description'),
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Please enter a description';
+                      }
+                      return null;
+                    },
+                  ),
+                  RaisedButton(
+                      onPressed: () => _showAddClassesPanel(),
+                      child: Text('Add class(es)'))
+                ],
+              )),
+              RaisedButton(
+                onPressed: () async {
+                  var title = _title.text;
+                  var body = _body.text;
+                  classes = widget.valuee;
+                  if (_formKey.currentState.validate()) {
+                    print("${widget.valuee}");
+                    await NoticeService()
+                        .updateNoticeData(title, body, classes);
+                    Navigator.pop(context);
+                  }
+                },
+                child: Text("Ajouter"),
+              ),
+            ]),
+          )),
+    );
   }
 }

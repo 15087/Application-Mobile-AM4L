@@ -48,7 +48,7 @@ class _SettingsState extends State<Settings> {
           UserData userData = snapshot.data;
           return Scaffold(
                   appBar: AppBar(
-                    title: Text('Add classe(s)'),
+                    title: Text('Add class(es)'),
                     actions: <Widget>[
                       FlatButton.icon(
                         onPressed: () async {
