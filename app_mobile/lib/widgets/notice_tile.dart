@@ -5,6 +5,25 @@ class NoticeTile extends StatelessWidget {
   final Notice notice;
   NoticeTile({this.notice});
 
+  // FIXME: not working, check if necessary, find another method to do the same work.
+  String _classesToText(List<String> classes) {
+    String text;
+    if (classes.length == 0) {
+      text = "";
+    } else if (classes.length < 4) {
+      for (var i = 0; i < classes.length; i++) {
+        text += classes[i];
+        text += " ";
+      }
+    } else {
+      for (var i = 0; i < 4; i++) {
+        text += classes[i];
+        text += " ";
+      }
+    }
+    return text;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -12,9 +31,16 @@ class NoticeTile extends StatelessWidget {
         child: Card(
           margin: EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 0.0),
           child: ListTile(
-            leading: Text("1A"),
+            leading: (CircleAvatar(
+              backgroundImage: NetworkImage(
+                  "https://i.dlpng.com/static/png/1678642_preview.png"),
+            )),
             title: Text(notice.title),
             subtitle: Text(notice.body),
+            // trailing: Text(_classesToText(notice.classes)),
+            // trailing: Text(notice.classes.toList().toString()),
+            // FIXME: limit the size of the trailing !
+            trailing: Text(notice.classes.toString()),
           ),
         ));
   }
