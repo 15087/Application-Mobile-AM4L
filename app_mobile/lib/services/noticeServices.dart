@@ -30,14 +30,31 @@ class NoticeService {
     }).toList();
   }
 
-  Future updateNoticeData(String title, String body) async {
+  // user data from snapshots
+  NoticeData _noticeDataFromSnapshot(DocumentSnapshot snapshot) {
+    return NoticeData(
+      uid: uid,
+      title: snapshot.data['title'],
+      body: snapshot.data['body'],
+      classes: snapshot.data['classes']
+    );
+  }
+
+  Future updateNoticeData(String title, String body, List classes) async {
     try {
       return await noticeCollection
           .document(uid)
-          .setData({'title': title, 'body': body});
+          .setData({'title': title, 'body': body, 'classes': classes});
     } catch (e) {
       print(e.toString());
       return null;
     }
   }
+
+  // get user doc stream
+  Stream<NoticeData> get noticeData {
+    return noticeCollection.document(uid).snapshots()
+      .map(_noticeDataFromSnapshot);
+  }
+
 }
