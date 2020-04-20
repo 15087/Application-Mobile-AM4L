@@ -8,9 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class HomePrincipal extends StatefulWidget {
-  List<String> valuee = List<String>();
 
-  HomePrincipal({Key key, this.valuee}) : super(key: key);
+  HomePrincipal({Key key}) : super(key: key);
 
   _HomePrincipalState createState() => _HomePrincipalState();
 }
@@ -34,19 +33,6 @@ class _HomePrincipalState extends State<HomePrincipal> {
 
   @override
   Widget build(BuildContext context) {
-    void _showAddClassesPanel() {
-      showModalBottomSheet(
-          context: context,
-          builder: (context) {
-            return StreamProvider<List<ClassLabel>>.value(
-              value: ClassService().classes,
-              child: Scaffold(
-                // padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 6.0),
-                body: ClassList(),
-              ),
-            );
-          });
-    }
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -93,24 +79,25 @@ class _HomePrincipalState extends State<HomePrincipal> {
                       return null;
                     },
                   ),
-                  RaisedButton(
-                      onPressed: () => _showAddClassesPanel(),
-                      child: Text('Add class(es)'))
+                  SizedBox(height: 20.0),
+                  StreamProvider<List<ClassLabel>>.value(
+                    value: ClassService().classes,
+                    child: ClassList()),
                 ],
               )),
               RaisedButton(
                 onPressed: () async {
                   var title = _title.text;
                   var body = _body.text;
-                  classes = widget.valuee;
+                  // FIXME: add classes value from checkbox
+                  classes = ;
                   if (_formKey.currentState.validate()) {
-                    print("${widget.valuee}");
                     await NoticeService()
                         .updateNoticeData(title, body, classes);
                     Navigator.pop(context);
                   }
                 },
-                child: Text("Ajouter"),
+                child: Text("Post new Notice"),
               ),
             ]),
           )),

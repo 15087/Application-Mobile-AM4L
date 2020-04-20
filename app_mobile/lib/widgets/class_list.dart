@@ -1,4 +1,3 @@
-import 'package:app_mobile/screens/home/homePrincipal.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:app_mobile/models/classLabel.dart';
@@ -9,21 +8,21 @@ class ClassList extends StatefulWidget {
 }
 
 class _ClassListState extends State<ClassList> {
-  final List<String> _selectedClasses = List<String>();
+  final List<String> selectedClasses = List<String>();
   final Map<String, bool> someMap = {};
 
   void _onClassesSelected(bool value, key) {
     if (value == true) {
       setState(() {
         someMap[key] = value;
-        _selectedClasses.add(key);
-        print(_selectedClasses);
+        selectedClasses.add(key);
+        print(selectedClasses);
       });
     } else {
       setState(() {
         someMap[key] = value;
-        _selectedClasses.remove(key);
-        print(_selectedClasses);
+        selectedClasses.remove(key);
+        print(selectedClasses);
       });
     }
   }
@@ -35,25 +34,9 @@ class _ClassListState extends State<ClassList> {
       someMap.putIfAbsent(clas.uid, () => false);
     }
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Add class(es)'),
-        actions: <Widget>[
-          FlatButton.icon(
-            onPressed: () async {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (BuildContext context) =>
-                          HomePrincipal(valuee: _selectedClasses)));
-            },
-            icon: Icon(Icons.playlist_add),
-            color: Colors.blue[20],
-            label: Text('Add'),
-          )
-        ],
-      ),
-      body: ListView(
+    return LimitedBox(
+      maxHeight: 300.0,
+      child: ListView(
         children: someMap.keys.map((String key) {
           return CheckboxListTile(
             title: Text(key),
