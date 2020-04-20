@@ -4,7 +4,6 @@ class PushNotificationService {
   final FirebaseMessaging _fcm = FirebaseMessaging();
 
   Future initialise() async {
-
     _fcm.configure(
       onMessage: (Map<String, dynamic> message) async {
         print("onMessage: $message");
@@ -18,7 +17,5 @@ class PushNotificationService {
     );
   }
 
-  notificationAction(){
-    
-  }
+  notificationAction() {}
 }
