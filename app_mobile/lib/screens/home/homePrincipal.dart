@@ -1,13 +1,9 @@
-//import 'package:app_mobile/models/notice.dart';
 import 'package:app_mobile/models/classLabel.dart';
-import 'package:app_mobile/models/notice.dart';
 import 'package:app_mobile/services/auth.dart';
 import 'package:app_mobile/services/classServices.dart';
 import 'package:app_mobile/services/noticeServices.dart';
 import 'package:app_mobile/shared/constants.dart';
-import 'package:app_mobile/shared/loading.dart';
 import 'package:app_mobile/widgets/class_list.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

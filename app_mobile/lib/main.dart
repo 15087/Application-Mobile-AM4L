@@ -4,12 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:app_mobile/models/user.dart';
 
-import 'dart:io';
-import 'package:flutter/material.dart';
-
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {

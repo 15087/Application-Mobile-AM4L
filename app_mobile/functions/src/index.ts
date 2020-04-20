@@ -1,12 +1,12 @@
-import * as functions from 'firebase-functions';
-import * as admin from 'firebase-admin';
+import * as functions from "firebase-functions";
+import * as admin from "firebase-admin";
 admin.initializeApp();
 
 //const db = admin.firestore();
 const fcm = admin.messaging();
-
-export const sendToTopic = functions.firestore
-  .document('notice/{noticeUid}')
+export const sendToTopicEurope = functions
+  .region("europe-west3")
+  .firestore.document("notice/{noticeId}")
   .onCreate(async (snapshot) => {
     const notice = snapshot.data();
     // Deploy not working if no if else statement
@@ -16,22 +16,22 @@ export const sendToTopic = functions.firestore
           notification: {
             title: `${clas} : ${notice.title}`,
             body: `${notice.body}`,
-            icon: 'your-icon-url',
-            click_action: 'FLUTTER_NOTIFICATION_CLICK', // required only for onResume or onLaunch callbacks
+            icon: "your-icon-url",
+            click_action: "FLUTTER_NOTIFICATION_CLICK", // required only for onResume or onLaunch callbacks
           },
         };
         fcm.sendToTopic(String(clas), payload);
       });
-      return 'Notifications sent';
+      return "Notifications sent";
     } else {
       const payload: admin.messaging.MessagingPayload = {
         notification: {
-          title: 'Notification error',
-          body: 'Notification Error message',
-          icon: 'your-icon-url',
-          click_action: 'FLUTTER_NOTIFICATION_CLICK',
+          title: "Notification error",
+          body: "Notification Error message",
+          icon: "your-icon-url",
+          click_action: "FLUTTER_NOTIFICATION_CLICK",
         },
       };
-      return fcm.sendToTopic('errors', payload);
+      return fcm.sendToTopic("errors", payload);
     }
   });
