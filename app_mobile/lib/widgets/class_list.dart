@@ -9,6 +9,8 @@ class ClassList extends StatefulWidget {
 }
 
 class _ClassListState extends State<ClassList> {
+  List<String> _selectedClasses = List<String>();
+  Map<String, bool> someMap = {};
   final List<String> _selectedClasses = List<String>();
 
   Map<String, bool> someMap = {};

@@ -1,4 +1,3 @@
-import 'package:app_mobile/widgets/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -12,6 +11,7 @@ import 'package:app_mobile/models/classLabel.dart';
 
 //import 'package:app_mobile/widgets/class_list.dart';
 import 'package:app_mobile/widgets/notice_list.dart';
+import 'package:app_mobile/widgets/settings.dart';
 
 class Home extends StatelessWidget {
   final AuthService _auth = AuthService();
