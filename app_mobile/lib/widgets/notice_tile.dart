@@ -33,7 +33,7 @@ class NoticeTile extends StatelessWidget {
           child: ListTile(
             leading: (CircleAvatar(
               backgroundImage: NetworkImage(
-                  "https://i.dlpng.com/static/png/1678642_preview.png"),
+                  "https://i.pinimg.com/736x/04/d2/f7/04d2f7b359149455c0f31b3c6baa2f8f.jpg"),
             )),
             title: Text(notice.title),
             subtitle: Text(notice.body),

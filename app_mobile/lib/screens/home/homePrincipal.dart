@@ -104,13 +104,12 @@ class _HomePrincipalState extends State<HomePrincipal> {
                   var body = _body.text;
                   classes = widget.valuee;
                   if (_formKey.currentState.validate()) {
-                    print("${widget.valuee}");
                     await NoticeService()
                         .updateNoticeData(title, body, classes);
-                    Navigator.pop(context);
+                    Navigator.push(context, MaterialPageRoute(builder : (context)=> HomePrincipal()));
                   }
                 },
-                child: Text("Ajouter"),
+                child: Text("Add new notice"),
               ),
             ]),
           )),
